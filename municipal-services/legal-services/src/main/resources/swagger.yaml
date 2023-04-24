@@ -1,0 +1,1106 @@
+swagger: '2.0'
+# eGSP YAML Template Version: 1.0
+# This is a version number for the YAML template. This must not be changed.
+
+info:
+  version: 1.0.0
+  title: iLMS
+  description: >
+    ### API specs for iLMS ###
+
+    To empower the department in performing their tasks promptly, within the deadlines. It
+    would also assist them in planning their workday more efficiently for their core duties.
+    With the re-engineered process of iLMS, there is an advantage of proficient legal
+    advisory, saving cost especially where the department is judgemented to pay fine by court,
+    enablement of workflows, with data repository, the systematic access and storage of
+    data with data analytical capabilities.
+
+paths:
+  /case/_create:
+    post:
+      summary: Create new case .
+      description: |
+        To create new case in the system. API supports bulk creation with max limit as defined in the case Request. Please note that either whole batch succeeds or fails, there's no partial batch success. To create one case, please pass array with one case object.
+      parameters:
+        - name: caseRequest
+          in: body
+          description: Details for the new case + RequestInfo meta data.
+          required: true
+          schema:
+            $ref: '#/definitions/CaseRequest'
+     
+      responses:
+        ####################################################
+        # All errors will be returned with HTTP error code 400 with customized error code and messages. Consumer of the API need to handle 400 with customized error code and message
+        ###################################################
+        201:
+          description: ReponseInfo with case(s) updated sudcessfully
+          schema:
+            $ref: '#/definitions/CaseResponse'
+        400:
+          description: Case(s) creation failed
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+     
+      tags:
+        - Case
+  /case/_update:
+    post:
+      summary: update case requests.
+      parameters:
+        - name: caseRequest
+          in: body
+          description: Details for the new case(s) + RequestInfo meta data.
+          required: true
+          schema:
+            $ref: '#/definitions/CaseRequest'
+      responses:
+        ####################################################
+        # All errors will be returned with HTTP error code 400 with customized error code and messages. Consumer of the API need to handle 400 with customized error code and message
+        ###################################################
+        201:
+          description: ReponseInfo with case(s) updated successfully
+          schema:
+            $ref: '#/definitions/CaseResponse'
+        400:
+          description: Case(s) updation failed
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      tags:
+        - Case
+ 
+  /case/_search:
+    post:
+      summary: Get case requests
+      tags:
+        - Case
+      description: Gets the list of case requests for a particular ULB based on search
+        criteria.
+      parameters:
+
+        - name: id
+          in: query
+          type: string
+        - name: caseNumber
+          in: query
+          description: Search by list of UUID
+          type: string
+        - name: cnrNumber
+          in: query
+          description: Search by cnr number of case request
+          type: string
+
+        - name: tenantId
+          in: query
+          description: Search by tenantId of case request
+          type: string
+
+        - name: limit
+          in: query
+          description: No of record return
+          type: integer
+
+        - name: offset
+          in: query
+          description: offset
+          type: integer
+
+        - name: sortBy
+          in: query
+          description: sorted by ascending by default if this parameter is not provided
+          type: string
+     
+      responses:
+        ####################################################
+        # All errors will be returned with HTTP error code 400 with customized error code and messages. Consumer of the API need to handle 400 with customized error code and message
+        ###################################################
+        201:
+          description: ReponseInfo with case(s) search sudcessfully
+          schema:
+            $ref: '#/definitions/CaseListResponse'
+        400:
+          description: Case(s) get failed
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /_caseDetails:
+    post:
+      summary: search case requests.
+      parameters:
+        - name: caseId
+          in: query
+          type: string
+          required: true
+        
+      responses:
+      ####################################################
+      # All errors will be returned with HTTP error code 400 with customized error code and messages. Consumer of the API need to handle 400 with customized error code and message
+      ###################################################
+        201:
+          description: ReponseInfo with case(s) updated sudcessfully
+          schema:
+            $ref: '#/definitions/CaseDetailListResponse'
+        400:
+          description: Case(s) updation failed
+          schema:
+            $ref: '#/definitions/ErrorResponse'   
+      tags:
+        - Case                
+ 
+  /hearing/_create:
+    post:
+      summary: create hearing requests.
+      parameters:
+        - name: hearingRequest
+          in: body
+          description: Details for the new hearing + RequestInfo meta data.
+          required: true
+          schema:
+            $ref: '#/definitions/HearingRequest'
+      responses:
+        ####################################################
+        # All errors will be returned with HTTP error code 400 with customized error code and messages. Consumer of the API need to handle 400 with customized error code and message
+        ###################################################
+        201:
+          description: ReponseInfo with hearing(s) updated sudcessfully
+          schema:
+            $ref: '#/definitions/HearingResponse'
+        400:
+          description: hearing(s) creation failed
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      tags:
+        - Hearing
+  /hearing/_update:
+    post:
+      summary: update hearing requests.
+      parameters:
+        - name: hearingRequest
+          in: body
+          description: Details for the update hearing(s) + RequestInfo meta data.
+          required: true
+          schema:
+            $ref: '#/definitions/HearingRequest'
+      responses:
+        ####################################################
+        # All errors will be returned with HTTP error code 400 with customized error code and messages. Consumer of the API need to handle 400 with customized error code and message
+        ###################################################
+        201:
+          description: ReponseInfo with hearing(s) updated sudcessfully
+          schema:
+            $ref: '#/definitions/HearingResponse'
+        400:
+          description: hearing(s) updation failed
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      tags:
+        - Hearing
+  /hearing/_search:
+    post:
+      summary: Get hearing requests
+      tags:
+        - Hearing
+      description: >
+        Gets the list of hearing requests for a particular ULB based on search
+        criteria.
+      parameters:
+        - name: id
+          in: query
+          type: string
+        - name: caseid
+          in: query
+          description: Search by list of UUID
+          type: string
+        - name: tenantId
+          in: query
+          description: Search by tenantId of case request
+          type: string
+
+        - name: limit
+          in: query
+          description: No of record return
+          type: integer
+
+        - name: offset
+          in: query
+          description: offset
+          type: integer
+
+        - name: sortBy
+          in: query
+          description: sorted by ascending by default if this parameter is not provided
+          type: string
+      responses:
+        ####################################################
+        # All errors will be returned with HTTP error code 400 with customized error code and messages. Consumer of the API need to handle 400 with customized error code and message
+        ###################################################
+        201:
+          description: ReponseInfo with hearing(s) search sudcessfully
+          schema:
+            $ref: '#/definitions/HearingListResponse'
+        400:
+          description: hearing(s) get failed
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  /judgement/_create:
+    post:
+      summary: create judgement requests.
+      parameters:
+        - name: judgementRequest
+          in: body
+          description: Details for the create judgement(s) + RequestInfo meta data.
+          required: true
+          schema:
+            $ref: '#/definitions/JudgementRequest'
+      responses:
+        ####################################################
+        # All errors will be returned with HTTP error code 400 with customized error code and messages. Consumer of the API need to handle 400 with customized error code and message
+        ###################################################
+        201:
+          description: ReponseInfo with judgement(s) created sudcessfully
+          schema:
+            $ref: '#/definitions/JudgementResponse'
+        400:
+          description: judgement(s) creation failed
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      tags:
+        - Judgement
+  /judgement/_update:
+    post:
+      summary: update judgement requests.
+      parameters:
+        - name: judgementRequest
+          in: body
+          description: Details for the update judgement(s) + RequestInfo meta data.
+          required: true
+          schema:
+            $ref: '#/definitions/JudgementRequest'
+      responses:
+      ####################################################
+      # All errors will be returned with HTTP error code 400 with customized error code and messages. Consumer of the API need to handle 400 with customized error code and message
+      ###################################################
+        201:
+          description: ReponseInfo with judgement(s) updated sudcessfully
+          schema:
+            $ref: '#/definitions/JudgementResponse'
+        400:
+          description: judgement(s) updation failed
+          schema:
+            $ref: '#/definitions/ErrorResponse'   
+      tags:
+        - Judgement 
+  /judgement/_search:
+    post:
+      summary: Get judgement requests
+      tags:
+        - Judgement 
+      description: >
+        Gets the list of judgement requests for a particular ULB based on search
+        criteria.
+      parameters:
+        - name: id
+          in: query
+          type: string
+            
+        - name: caseId
+          in: query
+          type: string    
+        
+        - name: tenantId 
+          in: query
+          description: Search by tenantId of case request
+          type: string
+            
+        - name: limit
+          in: query
+          description: No of record return
+          type: integer
+            
+        - name: offset
+          in: query
+          description: offset 
+          type: integer
+            
+        - name: sortBy
+          in: query
+          description: sorted by ascending by default if this parameter is not provided
+          type: string
+      responses:
+      ####################################################
+      # All errors will be returned with HTTP error code 400 with customized error code and messages. Consumer of the API need to handle 400 with customized error code and message
+      ###################################################
+        201:
+          description: ReponseInfo with hearing(s) search sudcessfully
+          schema:
+            $ref: '#/definitions/JudgementListResponse'
+        400:
+          description: hearing(s) get failed
+          schema:
+            $ref: '#/definitions/ErrorResponse'        
+  
+
+
+definitions:
+  ########################################################
+  #Definition must start with Upper case followed by camel case.
+  ########################################################        
+  RequestInfo:
+    type: object
+    properties:
+      apiId:
+        type: string
+      ver:
+        type: string
+      ts:
+        type: integer
+      msgId:
+        type: string
+      authToken:
+        type: string
+      userInfo:
+        type: object
+        properties:
+          id:
+            type: integer
+          uuid:
+            type: string
+          userName:
+            type: string
+          name:
+            type: string
+          mobileNumber:
+            type: string
+          emailId:
+            type: string
+          type:
+            type: string
+          role:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                code:
+                  type: string
+                tenantId:
+                  type: string
+          
+          tenantId:
+            type: string
+ 
+  CaseRequest:
+    type: object
+    description: This object holds information about the case request
+    properties:
+      requestInfo:
+        $ref: '#/definitions/RequestInfo'
+      case:
+        $ref: '#/definitions/Case'
+      # parties:
+      #   $ref: '#/definitions/Parties'
+  
+  CaseResponse:
+    type: object
+    description: This object holds information about the case response
+    properties:
+      responseInfo:
+        $ref: '#/definitions/ResponseInfo'
+      case:
+        $ref: '#/definitions/Case'
+        
+  CaseListResponse:
+    type: object
+    description: This object holds information about the case response
+    properties:
+      responseInfo:
+        $ref: '#/definitions/ResponseInfo'
+      TotalCount:
+            type: integer
+      caseList:
+        type: array
+        items:
+          $ref: '#/definitions/Case'
+  CaseDetailListResponse:
+    type: object
+    description: This object holds information about the case response
+    properties:
+      responseInfo:
+        $ref: '#/definitions/ResponseInfo'
+      TotalCount:
+            type: integer
+      caseList:
+        type: array
+        items:
+          $ref: '#/definitions/Case'
+      HearingList:
+        type: array
+        items:
+          $ref: '#/definitions/Hearing'
+      JudgementList:
+        type: array
+        items:
+          $ref: '#/definitions/Judgement'    
+  HearingRequest:
+    type: object
+    description: This object holds information about the hearing request
+    properties:
+      requestInfo:
+        $ref: '#/definitions/RequestInfo'
+      hearing:
+        $ref: '#/definitions/Hearing'
+  HearingResponse:
+    type: object
+    description: This object holds information about the hearing response
+    properties:
+      responseInfo:
+        $ref: '#/definitions/ResponseInfo'
+      hearing:
+        $ref: '#/definitions/Hearing'
+  HearingListResponse:
+    type: object
+    description: This object holds information about the hearingList response
+    properties:
+      responseInfo:
+        $ref: '#/definitions/ResponseInfo'
+      TotalCount:
+        type: integer
+      HearingList:
+        type: array
+        items:
+          $ref: '#/definitions/Hearing'
+  JudgementRequest:
+    type: object
+    description: This object holds information about the case request
+    properties:
+      requestInfo:
+        $ref: '#/definitions/RequestInfo'
+      judgement:
+        $ref: '#/definitions/Judgement'
+  JudgementResponse:
+    type: object
+    description: This object holds information about the case response
+    properties:
+      responseInfo:
+        $ref: '#/definitions/ResponseInfo'
+      judgement:
+        $ref: '#/definitions/Judgement'
+  JudgementListResponse:
+    type: object
+    description: This object holds information about the case response
+    properties:
+      responseInfo:
+        $ref: '#/definitions/ResponseInfo'
+      JudgementList:
+        type: array
+        items:
+          $ref: '#/definitions/Judgement'
+ 
+ 
+  ErrorResponse:
+    type: object
+    description: This object holds information about the error response
+    properties:
+      responseInfo:
+        $ref: '#/definitions/ResponseInfo'
+      Error:
+        $ref: '#/definitions/Error'
+  Error:
+    type: array
+    items:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+  
+  ResponseInfo:
+    type: object
+    properties:
+      apiId:
+        type: string
+      ver:
+        type: string
+      ts:
+        type: string
+      resMsgId:
+        type: string
+      msgId:
+        type: string
+      status:
+        type: string
+ 
+  Case:
+    type: object
+    properties:
+      id:
+        type: string
+        description: This id is autogenerated id of the case. It is the primary key.
+        readOnly: true
+      tenantId:
+        type: string
+        description: This is tenantId of the case.It is hard-coded in UI as MP as of now since we are only supporting this app for one state.
+      
+      caseNumber:
+        type: string
+        description: Unique identity of the case formed by combination of three attributes [Case type + number + year] L.P.A.1233/2022
+      cnrNumber:
+        type: string
+        description: The CNR means Case Number Record. CNR is a unique 16 digit number given to all cases. To put it in short, it is the unique case identity number by which any Case can be identified. CNR is assigned to each Case filed through Case Information System. it is specific to eCourts websites.
+      parentCaseId:
+        type: string
+        description: This field holds information about id of the parent case if it is a child of that parent or else this value will be null.
+      linkedCases:
+        type: array
+        items:
+          type: string
+        description: This field holds information about hierarchy of case.
+      type:
+        type: string
+        description: Summary of case from Petition.    
+      category:
+        type: string
+        description: Wide variety of legal issue filed for example Pension, Promotion, Transfer etc.(Master Data)
+      filingNumber:
+        type: string
+        description: When a case is filed in Court,  Diary Number  immediately issued, It is a temporary number given to your filing. Subsequently, regular Case No will be issued.
+      filingDate:
+        type: integer
+        description: Date of case filing.
+      registrationDate:
+        type: integer
+        description: This field holds information about
+          Date of registration of the case.
+      summary:
+        type: string
+        description: Summary of case from Petition.
+      arisingDetails:
+        type: string
+        description: This field hold information about ariging detail.
+      policyOrNonPolicyMatter:
+        type: string
+        description: Whether a case involves policy question as an issue to be decided - can be gathered from examination of petition.
+      caseStatus:
+        type: string
+        description: Which type of case it is.(Master Data)
+
+      stage:
+        type: string
+        description: The Stages & Substages section enables user to describe the stages of the case. All the processes and workflows act around Case Stages and sub-stages.(Transactional)
+      subStage:
+        type: string
+        description: Each sub-stage falls under one or the other stage of the workflow.(Transactional)
+
+      priority:
+        type: string
+        description: A matter that takes precedence over others. Flag matter as a priority case where Personal Appearance has been called from the Court or Fine Imposed or any matter that is marked by MO or Principal Secretary for urgent action.(Transactional)
+        enum:
+          - NULL
+          - HIGH
+      acts:
+        $ref: '#/definitions/Acts'    
+      parties:
+        $ref: '#/definitions/Party'
+      court:
+        $ref: '#/definitions/Court'
+      document:
+        $ref: '#/definitions/Document'
+          
+      recommendOic:
+        type: string
+        description: Concerning State officer is person who is dealing with particular type of case.(Master Data)
+      remarks:
+        type: string
+        description: This field holds information about remarks of case.
+      additionalDetails:
+        type: string
+        description: This field is meant to hold any extra information that we want to store for a case.
+      
+      
+      status:
+        type: string
+        description: This field holds information about status.
+      auditdetails:
+        type: object
+        properties:
+          createdBy:
+            type: string
+            description: This field is autogenerated for createdBy user.
+          lastModifiedBy:
+            type: string
+            description: This field is autogenerated for lastModifiedBy user.
+          createdTime:
+            type: integer
+            description: This field is autogenerated for createdt time.
+          lastModifiedTime:
+            type: integer
+            description: This field is autogenerated for last modified time.
+      workflow:
+        $ref: '#/definitions/Workflow'
+    required:
+      - tenantId
+      - type
+      - category
+      - number
+      - filingDate
+      - registrationDate
+      - caseStatus
+      - stage
+      - subStage
+      - assignedOfficerId
+      - hierarchy
+       
+  Hearing:
+    type: object
+    properties:
+      id:
+        type: string
+        description: This id is autogenerated id of the hearing. It is the primary key.
+        readOnly: true
+      courtRoomNumber:
+        type: string
+        description: This field holds information about id of court.
+      bench:
+        type: string
+        description: not clear
+      tenantId:
+        type: string
+        description: This is tenantId of the case.It is hard-coded in UI as MP as of now since we are only supporting this app for one state.
+      hearingNumber:
+        type: string
+        description: This field holds information about number of Hearings
+      caseId:
+        type: string
+        description: This field holds information about id of case.
+      judgeName:
+        type: string
+        description: This field holds information about name of judge.
+      hearingDate:
+        type: integer
+        description: This field holds information about date of hearing.
+      businessDate:
+        type: integer
+        description: This field holds information about date of business.
+      hearingPurpose:
+        type: string
+        description: This field holds information about purpose of hearing.
+      requiredOfficer:
+        type: string
+        description: This field holds information about requiredOfficer for hearing.
+      affidavitFilingDueDate:
+        type: integer
+        description: This field holds information about filing due date of affidavit.
+      affidavitFilingDate:
+        type: integer
+        description: This field holds information about filing date of affidavit.
+      caseNumber:
+        type: string
+        description: This field holds the caseNumber.
+      oathNumber:
+        type: string
+        description: This field holds information about
+          oath number.
+      nextHearingDate:
+        type: integer
+        description: This field holds Date of next hearing.
+      isPresenceRequired:
+        type: string
+        description: This field holds information of presence.
+      hearingType:
+        type: string
+        description: This field holds information about type of hearing.
+      departmentOfficer:
+        type: string
+        description: This field holds information about officer of department.
+      remarks:
+        type: string
+        description: This field holds information about remarks.
+      status:
+        type: string
+        description: This field holds information about 
+         status. 
+      
+      additionalDetails:
+        type: string
+        description: This field is meant to hold any extra information that we want to store for a hearing.
+      
+      parties:
+        $ref: '#/definitions/Party'
+      payment:
+        $ref: '#/definitions/Payment'
+      
+      auditdetails:
+        type: object
+        properties:
+          createdBy:
+            type: string
+            description: This field is autogenerated for createdBy user.
+          lastModifiedBy:
+            type: string
+            description: This field is autogenerated for lastModifiedBy user.
+          createdTime:
+            type: integer
+            description: This field is autogenerated for createdt time.
+          lastModifiedTime:
+            type: integer
+            description: This field is autogenerated for last modified time.
+      workflow:
+        $ref: '#/definitions/Workflow'      
+    required:
+      - date
+      # MDMS:
+      #   type: object
+      #   properties:    
+  Judgement:
+    type: object
+    properties:
+      id:
+        type: string
+        description: This judgement id is autogenerated.it is the primary key.
+        readOnly: true
+      tenantId:
+        type: string
+        description: This is tenantId of the case.It is hard-coded in UI as MP as of now since we are only supporting this app for one state.
+      caseId:
+        type: string
+        description: This field holds information about caseId for judgement.
+      hearingId:
+        type: string
+      orderType:
+        type: string
+        description: This field holds information about order type.(Master data)
+      orderDate:
+        type: integer
+        description: This field holds information about
+          date of order.
+      decisionStatus:
+        type: string
+        description: This field holds information about
+          Status of decision.(Master data)
+      complianceDate:
+        type: integer
+        description: This field holds information about
+          date of compliance.
+      revisedComplianceDate:
+        type: string
+        description: This field holds information about
+          revised date of Compliance.
+      orderNoOverride:
+        type: string
+        description: This field holds information about
+          override of order No.
+      revisedComplainceReason:
+        type: string
+        description: This field holds information about
+          reason of  revisedcComplaince.
+      complianceStatus:
+        type: string
+        description: This field holds information about
+          status of compliance.(Master data)
+      remarks:
+        type: string
+        description: This field holds information about remarks
+      additionalDetails:
+        type: string
+        description: This field is meant to hold any extra information that we want to store for a judgement.
+      status:
+        type: string
+        description: This field holds information about status.
+      auditdetails:
+        type: object
+        properties:
+          createdBy:
+            type: string
+            description: This field is autogenerated for createdBy user.
+          lastModifiedBy:
+            type: string
+            description: This field is autogenerated for lastModifiedBy user.
+          createdTime:
+            type: integer
+            description: This field is autogenerated for createdt time.
+          lastModifiedTime:
+            type: integer
+            description: This field is autogenerated for last modified time.
+      workflow:
+        $ref: '#/definitions/Workflow'
+    required:
+      - judgementType
+      - judgementDate
+      - decisionStatus
+      - complianceDate
+      - revisedComplianceDate
+      - judgementNoOverride
+      - revisedComplainceReason
+      - complianceStatus
+       
+
+  Document:
+    type: object
+    properties:
+      id:
+        type: string
+        readOnly: true
+      caseId:
+        type: string
+      documentType:
+        type: string
+      fileStoreId:
+        type: string
+      status:
+        type: string
+        description: This field holds information about status.
+      auditdetails:
+        type: object
+        properties:
+          createdBy:
+            type: string
+            description: This field is autogenerated for createdBy user.
+          lastModifiedBy:
+            type: string
+            description: This field is autogenerated for lastModifiedBy user.
+          createdTime:
+            type: integer
+            description: This field is autogenerated for createdt time.
+          lastModifiedTime:
+            type: integer
+            description: This field is autogenerated for last modified time.
+    required:
+      - caseId
+      - documentType
+      - fileStoreId
+  Party:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          description: This id is autogenerated id of the case. It is the primary key.
+          readOnly: true
+        caseId:
+          type: string
+        advocateId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        gender:
+          type: string
+        petitionerType:
+          type: string
+        address:
+          type: string
+        departmentName:
+          type: string
+        contactNumber:
+          type: string  
+        partyType:
+          type: string
+          description: This field holds imformation about type of respondent.(Master Data)
+          
+        advocate:  
+          $ref: '#/definitions/Advocate'  
+        status:
+          type: string
+        auditdetails:
+          type: object
+          properties:
+            createdBy:
+              type: string
+              description: This field is autogenerated for createdBy user.
+            lastModifiedBy:
+              type: string
+              description: This field is autogenerated for lastModifiedBy user.
+            createdTime:
+              type: integer
+              description: This field is autogenerated for createdt time.
+            lastModifiedTime:
+              type: integer
+              description: This field is autogenerated for last modified time.   
+        
+  Advocate:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        contactNumber:
+          type: string
+        status:
+          type: string
+        auditdetails:
+          type: object
+          properties:
+            createdBy:
+              type: string
+              description: This field is autogenerated for createdBy user.
+            lastModifiedBy:
+              type: string
+              description: This field is autogenerated for lastModifiedBy user.
+            createdTime:
+              type: integer
+              description: This field is autogenerated for createdt time.
+            lastModifiedTime:
+              type: integer
+              description: This field is autogenerated for last modified time.  
+      
+    
+  Acts:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          description: This id is autogenerated id of the case. It is the primary key.
+          readOnly: true
+        caseId:
+          type: string
+        actName:
+          type: string
+          description: This field holds information about actName of case.
+        sectionNumber:
+          type: array
+          description: This field holds information about Number of section of the case.(Change to array)
+          items:
+            type: string
+        status:
+          type: string
+          description: This field holds information about status.
+        auditdetails:
+          type: object
+          properties:
+            createdBy:
+              type: string
+              description: This field is autogenerated for createdBy user.
+            lastModifiedBy:
+              type: string
+              description: This field is autogenerated for lastModifiedBy user.
+            createdTime:
+              type: integer
+              description: This field is autogenerated for createdt time.
+            lastModifiedTime:
+              type: integer
+              description: This field is autogenerated for last modified time.
+     
+      required:
+        - actName
+        - sectionNumber 
+  Court:
+    type: object
+    properties:
+      id:
+        type: string
+        description: This id will autogenerated for court. it is the primary Key.
+        readOnly: true
+      courtName:
+        type: string
+        description: Supreme Court, Concerned High Court, District Courts, Tribunals etc.
+      district:
+        type: string
+        description: District in which the matter has arose. 
+
+      state:
+        type: string
+        description: State Name e.g. Madhya Pradesh.
+      division:
+        type: string
+        description: This field holds information about
+          division of court.(Master data)
+      status:
+        type: string
+        description: This field holds information about status.
+        enum:
+          - ACTIVE
+          - INACTIVE
+          - DRAFTED
+      auditdetails:
+        type: object
+        properties:
+          createdBy:
+            type: string
+            description: This field is autogenerated for reatedBy user.
+          lastModifiedBy:
+            type: string
+            description: This field is autogenerated for lastModifiedBy user.
+          createdTime:
+            type: integer
+            description: This field is autogenerated for createdt time. 
+          lastModifiedTime:
+            type: integer  
+            description: This field is autogenerated for last modified time.    
+    required:
+      - courtName
+      - courtNumber
+      - district
+      - state
+      - bench
+      - division  
+  Payment:
+    type: object
+    properties:
+      id:
+        type: string
+        description: This id will autogenerated for payment.it is the primary Key.
+        readOnly: true
+      
+      fineImposedDate:
+        type: integer
+        description: This field holds information about date of fineImposed.
+      fineDueDate:
+        type: integer
+        description: This field holds information about
+          due date of fine.
+      fineAmount:
+        type: string
+        description: This field holds information about
+          amount of fine. 
+  Workflow:
+    type: object
+    properties:
+      action:
+        type: string
+      comments:
+        type: string
+      businessService:
+        type: string
+      moduleName:
+        type: string
+      assignes:
+        type: array
+        items:
+          type: object        
+  MDMSData:
+    type: object
+    properties:
+      courtCode:
+        type: string
+        description: This is court code where it will fetch all the court details.(Master Data)
+      category:
+        type: string
+        description: Wide variety of legal issue filed for example Pension, Promotion, Transfer etc.(Master Data)
+      caseStatus:
+        type: string
+      department:
+        type: string
+        description: This field holds information about name of department.(Master data)
+      recommendOic:
+        type: string
+        description: Concerning State officer is person who is dealing with particular type of case.(Master Data).    
+
+tags:
+  - name: Case
+    description: APIs required for case creation.
+  - name: Hearing
+    description: APIs required for hearing creation.
+  - name: Judgement
+    description: APIs required for Judgement creation.

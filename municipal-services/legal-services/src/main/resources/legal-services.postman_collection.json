@@ -1,0 +1,90 @@
+{
+	"info": {
+		"_postman_id": "fb1815af-c577-40c0-a5ba-7dd190df6a41",
+		"name": "legal-services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Workflow Create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "staging.digit.org"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "origin",
+						"value": "https://staging.digit.org"
+					},
+					{
+						"key": "referer",
+						"value": "https://staging.digit.org/digit-ui/employee/pt/application-details/PG-PT-2022-07-20-001911"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\".Not/A)Brand\";v=\"99\", \"Google Chrome\";v=\"103\", \"Chromium\";v=\"103\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"Windows\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"RequestInfo\": {\n        \"apiId\": \"\",\n        \"ver\": \"\",\n        \"ts\": null,\n        \"resMsgId\": \"uief87324\",\n        \"msgId\": \"\",\n        \"status\": \"ACTIVE\",\n        \"authToken\": \"a39bb61c-3385-49b0-8068-f025dd862856\",\n        \"userInfo\": {\n            \"id\": 91,\n            \"uuid\": \"673f213d-e3d8-4cbf-89fe-719fa94c4532\",\n            \"userName\": \"SUPERUSER\",\n            \"name\": \"SUPER USER\",\n            \"mobileNumber\": \"9573031151\",\n            \"emailId\": null,\n            \"locale\": null,\n            \"type\": \"EMPLOYEE\",\n            \"roles\": [\n                {\n                    \"name\": \"Super User\",\n                    \"code\": \"SUPERUSER\",\n                    \"tenantId\": \"mp\"\n                },\n                {\n                    \"name\": \"HRMS ADMIN\",\n                    \"code\": \"HRMS_ADMIN\",\n                    \"tenantId\": \"mp\"\n                }\n            ],\n            \"active\": true,\n            \"tenantId\": \"mp\",\n            \"permanentCity\": null\n        }\n    },\n    \"BusinessServices\": [\n        {\n            \"tenantId\": \"mp\",\n            \"businessService\": \"iLMS\",\n            \"business\": \"iLMS-services\",\n            \"businessServiceSla\": 432000000,\n            \"states\": [\n                {\n                    \"tenantId\": \"mp\",\n                    \"sla\": null,\n                    \"state\": null,\n                    \"applicationStatus\": \"Case Created\",\n                    \"docUploadRequired\": false,\n                    \"isStartState\": true,\n                    \"isTerminateState\": false,\n                    \"actions\": [\n                        {\n                            \"action\": \"CREATE\",\n                            \"nextState\": \"PENDING_AT_DEC\",\n                            \"roles\": [\n                                \"DEC\"\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"tenantId\": \"mp\",\n                    \"sla\": null,\n                    \"state\": \"CASE_CREATED\",\n                    \"applicationStatus\": \"Case Created\",\n                    \"docUploadRequired\": false,\n                    \"isStartState\": true,\n                    \"isTerminateState\": false,\n                    \"actions\": [\n                        {\n                            \"action\": \"CREATE\",\n                            \"nextState\": \"PENDING_AT_DEC\",\n                            \"roles\": [\n                                \"DEC\"\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"sla\": null,\n                    \"state\": \"PENDING_AT_DEC\",\n                    \"applicationStatus\": \"Pending At DEC\",\n                    \"docUploadRequired\": false,\n                    \"isStartState\": true,\n                    \"isTerminateState\": false,\n                    \"isStateUpdatable\": true,\n                    \"actions\": [\n                        {\n                            \"action\": \"FORWARD_TO_RO\",\n                            \"nextState\": \"PENDING_AT_RO\",\n                            \"roles\": [\n                                \"DEC\"\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"sla\": null,\n                    \"state\": \"CASE_REASSIGNED_TO_DEC\",\n                    \"applicationStatus\": \"Case Reassigned To DEC\",\n                    \"docUploadRequired\": false,\n                    \"isStartState\": true,\n                    \"isTerminateState\": false,\n                    \"isStateUpdatable\": true,\n                    \"actions\": [\n                        {\n                            \"action\": \"FORWARD_TO_RO\",\n                            \"nextState\": \"PENDING_AT_RO\",\n                            \"roles\": [\n                                \"DEC\"\n                            ]\n                        },\n                        {\n                            \"action\": \"UPDATE_AT_DEC_LEVEL\",\n                            \"nextState\": \"PENDING_AT_RO\",\n                            \"roles\": [\n                                \"DEC\"\n                            ]\n                        },\n                        {\n                            \"action\": \"INACTIVE\",\n                            \"nextState\": \"INACTIVE\",\n                            \"roles\": [\n                                \"DEC\"\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"sla\": null,\n                    \"state\": \"PENDING_AT_RO\",\n                    \"applicationStatus\": \"Pending at reviewing Officer\",\n                    \"docUploadRequired\": false,\n                    \"isStartState\": true,\n                    \"isTerminateState\": false,\n                    \"isStateUpdatable\": true,\n                    \"actions\": [\n                        {\n                            \"action\": \"ASSIGNBACK_TO_DEC\",\n                            \"nextState\": \"CASE_REASSIGNED_TO_DEC\",\n                            \"roles\": [\n                                \"RO\"\n                            ]\n                        },\n                        {\n                            \"action\": \"UPDATE_AT_RO_LEVEL\",\n                            \"nextState\": \"PENDING_AT_OICA\",\n                            \"roles\": [\n                                \"RO\"\n                            ]\n                        },\n                        {\n                            \"action\": \"APPROVED_AND_FORWARD_TO_OICA\",\n                            \"nextState\": \"PENDING_AT_OICA\",\n                            \"roles\": [\n                                \"RO\"\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"sla\": null,\n                    \"state\": \"PENDING_AT_OICA\",\n                    \"applicationStatus\": \"Pending at OICA Officer\",\n                    \"docUploadRequired\": false,\n                    \"isStartState\": false,\n                    \"isTerminateState\": false,\n                    \"isStateUpdatable\": true,\n                    \"actions\": [\n                        {\n                            \"action\": \"ASSIGNBACK_TO_RO\",\n                            \"nextState\": \"PENDING_AT_RO\",\n                            \"roles\": [\n                                \"OICA\"\n                            ]\n                        },\n                        {\n                            \"action\": \"UPDATE_AT_OICA_LEVEL\",\n                            \"nextState\": \"PENDING_AT_AO\",\n                            \"roles\": [\n                                \"OICA\"\n                            ]\n                        },\n                        {\n                            \"action\": \"FORWARD_TO_AO\",\n                            \"nextState\": \"PENDING_AT_AO\",\n                            \"roles\": [\n                                \"OICA\"\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"sla\": null,\n                    \"state\": \"PENDING_AT_AO\",\n                    \"applicationStatus\": \"Pending at AO\",\n                    \"docUploadRequired\": false,\n                    \"isStartState\": false,\n                    \"isTerminateState\": false,\n                    \"isStateUpdatable\": true,\n                    \"actions\": [\n                        {\n                            \"action\": \"FORWARD_TO_OIC\",\n                            \"nextState\": \"PENDING_AT_OIC\",\n                            \"roles\": [\n                                \"AO\"\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"sla\": null,\n                    \"state\": \"PENDING_AT_OIC\",\n                    \"applicationStatus\": \"Pending at OIC\",\n                    \"docUploadRequired\": false,\n                    \"isStartState\": false,\n                    \"isTerminateState\": false,\n                    \"isStateUpdatable\": true,\n                    \"actions\": [\n                        {\n                            \"action\": \"CLOSE\",\n                            \"nextState\": \"CLOSED\",\n                            \"roles\": [\n                                \"OIC\"\n                            ]\n                        },\n                        {\n                            \"action\": \"DOCUMENT_REVIEW\",\n                            \"nextState\": \"CLOSED\",\n                            \"roles\": [\n                                \"OIC\"\n                            ]\n                        },\n                        {\n                            \"action\": \"HEARING_REVIEW\",\n                            \"nextState\": \"PENDING_AT_AO\",\n                            \"roles\": [\n                                \"OIC\"\n                            ]\n                        },\n                        {\n                            \"action\": \"INTERVENTION_REVIEW_AT_OIC\",\n                            \"nextState\": \"PENDING_AT_AO\",\n                            \"roles\": [\n                                \"OIC\"\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"sla\": null,\n                    \"state\": \"DOCUMENT_REVIEW_PENDING_AT_AO\",\n                    \"applicationStatus\": \"Document Review, pending at AO\",\n                    \"docUploadRequired\": false,\n                    \"isStartState\": true,\n                    \"isTerminateState\": false,\n                    \"isStateUpdatable\": true,\n                    \"actions\": [\n                        {\n                            \"action\": \"FORWARD_TO_OIC\",\n                            \"nextState\": \"PENDING_AT_OIC\",\n                            \"roles\": [\n                                \"AO\"\n                            ]\n                        }\n                    ]\n                },\n                {\n                    \"sla\": null,\n                    \"state\": \"CLOSED\",\n                    \"applicationStatus\": \"Closed\",\n                    \"docUploadRequired\": false,\n                    \"isStartState\": false,\n                    \"isTerminateState\": true,\n                    \"isStateUpdatable\": true,\n                    \"actions\": null\n                },\n                {\n                    \"sla\": null,\n                    \"state\": \"INACTIVE\",\n                    \"applicationStatus\": \"Inactive\",\n                    \"docUploadRequired\": false,\n                    \"isStartState\": false,\n                    \"isTerminateState\": true,\n                    \"isStateUpdatable\": true,\n                    \"actions\": null\n                }\n            ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://14.97.12.97/egov-workflow-v2/egov-wf/businessservice/_create",
+					"protocol": "http",
+					"host": [
+						"14",
+						"97",
+						"12",
+						"97"
+					],
+					"path": [
+						"egov-workflow-v2",
+						"egov-wf",
+						"businessservice",
+						"_create"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
