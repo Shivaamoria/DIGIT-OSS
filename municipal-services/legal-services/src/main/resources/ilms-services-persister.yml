@@ -5,6 +5,12 @@ serviceMaps:
       description: Add cases in ilms_case table
       fromTopic: save-ilms-case-application
       isTransaction: true
+      isAuditEnabled: true
+      module: iLMS-services
+      objecIdJsonPath: $.id
+      tenantIdJsonPath: $.tenantId
+      transactionCodeJsonPath: $.transactionCode
+      auditAttributeBasePath: $.case
       queryMaps:
         - query: INSERT INTO ilms_case(id, tenant_id, case_number, cnr_number, parent_case_id, linked_cases, case_type, case_category, filing_number, filing_date, registrtion_date, case_summary, arising_details, policy_or_nonpolicy_matter, case_status, case_stage, case_sub_stage, priority, recommend_oic, remarks, additional_details, status, createdby, createdtime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
           basePath: case
@@ -174,6 +180,12 @@ serviceMaps:
       description: Add hearing details in ilms_hearing table
       fromTopic: save-hearing-details-application
       isTransaction: true
+      isAuditEnabled: true
+      module: iLMS-services
+      objecIdJsonPath: $.id
+      tenantIdJsonPath: $.tenantId
+      transactionCodeJsonPath: $.transactionCode
+      auditAttributeBasePath: $.hearing
       queryMaps:
         - query: INSERT INTO ilms_hearing(id, tenant_id, hearing_number, court_number, bench, case_id, judge_name, hearing_date, business_date, hearing_purpose, required_officer, affidavit_filing_date, affidavit_filing_due_date, case_number, oath_number, next_hearing_date, is_presence_required, hearing_type, department_officer, remarks, additional_details, status , createdby, createdtime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
           basePath: hearing
@@ -272,6 +284,12 @@ serviceMaps:
       description: Add cases in ilms_case table
       fromTopic: save-judgement-case-application
       isTransaction: true
+      isAuditEnabled: true
+      module: iLMS-services
+      objecIdJsonPath: $.id
+      tenantIdJsonPath: $.tenantId
+      transactionCodeJsonPath: $.transactionCode
+      auditAttributeBasePath: $.judgement
       queryMaps:
         - query: INSERT INTO ilms_judgement(id,tenant_id, case_id, order_type, order_date, decision_status, compliance_date, revised_compliance_date, order_no_override, revised_complaince_reason,compliance_status, remarks, additional_details, status, createdby, createdtime) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
           basePath: judgement
@@ -315,6 +333,12 @@ serviceMaps:
       description: update cases in ilms_case table
       fromTopic: update-ilms-case-application
       isTransaction: true
+      isAuditEnabled: true
+      module: iLMS-services
+      objecIdJsonPath: $.id
+      tenantIdJsonPath: $.tenantId
+      transactionCodeJsonPath: $.transactionCode
+      auditAttributeBasePath: $.case
       queryMaps:
         - query: INSERT INTO ilms_case_auditlog SELECT * FROM ilms_case WHERE id =?
           basePath: case
@@ -493,6 +517,12 @@ serviceMaps:
       description: update Hearing Details in hearing_details table
       fromTopic: update-hearing-details-application
       isTransaction: true
+      isAuditEnabled: true
+      module: iLMS-services
+      objecIdJsonPath: $.id
+      tenantIdJsonPath: $.tenantId
+      transactionCodeJsonPath: $.transactionCode
+      auditAttributeBasePath: $.hearing
       queryMaps:
         - query: INSERT INTO ilms_hearing_auditlog SELECT * FROM ilms_hearing WHERE id =?
           basePath: hearing
@@ -605,6 +635,12 @@ serviceMaps:
       description: Update judgement in ilms_judgement table
       fromTopic: update-order-case-application
       isTransaction: true
+      isAuditEnabled: true
+      module: iLMS-services
+      objecIdJsonPath: $.id
+      tenantIdJsonPath: $.tenantId
+      transactionCodeJsonPath: $.transactionCode
+      auditAttributeBasePath: $.judgement
       queryMaps:
         - query: INSERT INTO ilms_judgement_auditlog SELECT * FROM ilms_judgement where id = ? AND case_id = ? ;
           basePath: judgement
